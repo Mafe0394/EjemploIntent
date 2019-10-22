@@ -69,4 +69,14 @@ public class DetalleContacto extends AppCompatActivity {
         emailIntent.setType("message/rfc822");
         startActivity(Intent.createChooser(emailIntent,"Email "));
     }
+
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent=new Intent(DetalleContacto.this,
+                MainActivity.class);
+        startActivity(intent);
+    }
 }
