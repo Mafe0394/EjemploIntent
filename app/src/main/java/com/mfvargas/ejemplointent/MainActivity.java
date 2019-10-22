@@ -1,13 +1,15 @@
 package com.mfvargas.ejemplointent;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +37,24 @@ public class MainActivity extends AppCompatActivity {
         listaContactos.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,nombresContacto));
 
+        //Creación de intent explicito que permita unir las 2 actividades
+        //Crear listener, está atento al click en la lista
+        listaContactos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //con position se sabe que indice tiene el item con el
+                //que se está interactuando
+                Intent intent=new Intent(MainActivity.this,DetalleContacto.class);
+                intent.putExtra(getResources().getString(R.string.pnombre),
+                        contactos.get(position).getNombre());
+                intent.putExtra(getResources().getString(R.string.ptelefono),
+                        contactos.get(position).getTelefono());
+                intent.putExtra(getResources().getString(R.string.pemail),
+                        contactos.get(position ).getEmail());
+                startActivity(intent);
+
+            }
+        });
 
     }
 }

@@ -3,4 +3,7 @@
     <string name="nombre">Mafe</string>
     <string name="Telefono">3258965</string>
     <string name="email">kljsd@safk.com</string>
+    <string name="pnombre">Nombre</string>
+    <string name="ptelefono">Telefono</string>
+    <string name="pemail">Email</string>
 </resources>
