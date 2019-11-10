@@ -1,4 +1,4 @@
-package com.mfvargas.ejemplointent;
+package com.mfvargas.ejemplointent.modelo;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,32 +10,34 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 
-public class DetalleContacto extends AppCompatActivity {
+import com.mfvargas.ejemplointent.MainActivity;
+import com.mfvargas.ejemplointent.R;
+import com.mfvargas.ejemplointent.databinding.ActivityDetalleContactoBinding;
+
+public class DetalleContacto extends AppCompatActivity{
 
     // Variables globales
     private TextView nombre;
     private TextView telefono;
     private TextView email;
 
+    private ActivityDetalleContactoBinding activityDetalleContactoBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_contacto);
+        activityDetalleContactoBinding= DataBindingUtil.setContentView(this,
+                R.layout.activity_detalle_contacto);
 
         Bundle parametros = getIntent().getExtras();
 
-        String Nombre = parametros.getString(getResources().getString(R.string.pnombre));
-        String Telefono = parametros.getString(getResources().getString(R.string.ptelefono));
-        String Email = parametros.getString(getResources().getString(R.string.pemail));
+        Contacto contacto = new Contacto(parametros.getString("nombre"),
+                parametros.getString("telefono"),
+                parametros.getString("email"),
+                parametros.getInt("foto"));
 
-        nombre = findViewById(R.id.tvNombre);
-        telefono = findViewById(R.id.tvTelefono);
-        email = findViewById(R.id.tvEmail);
-
-        nombre.setText(Nombre);
-        telefono.setText(Telefono);
-        email.setText(Email);
+        activityDetalleContactoBinding.setContacto(contacto);
     }
 
 
@@ -78,5 +80,6 @@ public class DetalleContacto extends AppCompatActivity {
         Intent intent=new Intent(DetalleContacto.this,
                 MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="contacto"
+            type="com.mfvargas.ejemplointent.modelo.Contacto" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_contacto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/_4dp"
+            android:layout_margin="@dimen/_28dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_icono"
+                    android:layout_width="@dimen/_40dp"
+                    android:layout_height="@dimen/_40dp"
+                    app:image="@{contacto.imagen}"
+                    app:layout_constraintTop_toTopOf="@id/tv_nombre"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_telefono"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="@dimen/_28dp"
+                    android:contentDescription="@null"
+                    android:layout_marginStart="@dimen/_28dp" />
+                <TextView
+                    android:id="@+id/tv_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/iv_icono"
+                    android:layout_marginLeft="@dimen/_28dp"
+                    android:text="@{contacto.nombre}"
+                    android:contentDescription="@null"
+                    android:layout_marginStart="@dimen/_28dp" />
+                <TextView
+                    android:id="@+id/tv_telefono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nombre"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_nombre"
+                    android:text="@{contacto.telefono}"
+                    android:contentDescription="@null"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>

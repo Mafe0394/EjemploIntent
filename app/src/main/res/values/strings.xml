@@ -6,4 +6,6 @@
     <string name="pnombre">Nombre</string>
     <string name="ptelefono">Telefono</string>
     <string name="pemail">Email</string>
+    <string name="et_nombre">Nombre</string>
+    <string name="et_telefono">Telefono</string>
 </resources>
