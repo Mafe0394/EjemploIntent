@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfvargas.ejemplointent.modelo.Contacto;
-import com.mfvargas.ejemplointent.modelo.DetalleContacto;
+import com.mfvargas.ejemplointent.DetalleContacto;
 import com.mfvargas.ejemplointent.R;
 import com.mfvargas.ejemplointent.databinding.ContainerRecyclerViewBinding;
 

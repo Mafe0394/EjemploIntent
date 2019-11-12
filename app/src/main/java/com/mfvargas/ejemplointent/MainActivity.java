@@ -4,11 +4,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.mfvargas.ejemplointent.adaptador.ContactoAdaptador;
-import com.mfvargas.ejemplointent.modelo.Contacto;
+import com.mfvargas.ejemplointent.adaptador.PageAdapter;
 import com.mfvargas.ejemplointent.databinding.ActivityMainBinding;
+import com.mfvargas.ejemplointent.fragments.PerfilFragment;
+import com.mfvargas.ejemplointent.fragments.RecyclerViewFragment;
+import com.mfvargas.ejemplointent.modelo.Contacto;
 
 import java.util.ArrayList;
 
@@ -18,71 +21,48 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Contacto> contactos;
 
+    private ActivityMainBinding activityMainBinding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding activityMainBinding= DataBindingUtil.setContentView(this, R.layout.activity_main);
-        contactos= new ArrayList<Contacto>();
-        contactos.add(new Contacto("Pedro Rosales",
-                "7777775","pedro@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Gato Perez",
-                "3333361","gato@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Loli  PopKorn",
-                "6549852","lolipop@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Felipin Felipepinillos",
-                "5466487","Felipin@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Pedro Rosales",
-                "7777775","pedro@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Gato Perez",
-                "3333361","gato@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Loli  PopKorn",
-                "6549852","lolipop@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Felipin Felipepinillos",
-                "5466487","Felipin@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Pedro Rosales",
-                "7777775","pedro@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Gato Perez",
-                "3333361","gato@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Loli  PopKorn",
-                "6549852","lolipop@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Felipin Felipepinillos",
-                "5466487","Felipin@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Pedro Rosales",
-                "7777775","pedro@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Gato Perez",
-                "3333361","gato@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Loli  PopKorn",
-                "6549852","lolipop@gmail.com",
-                R.drawable.ic_face_24px));
-        contactos.add(new Contacto("Felipin Felipepinillos",
-                "5466487","Felipin@gmail.com",
-                R.drawable.ic_face_24px));
+        activityMainBinding= DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        ContactoAdaptador contactoAdaptador=new ContactoAdaptador(contactos,this);
-        activityMainBinding.rvListaPeliculas.setAdapter(contactoAdaptador);
+        //Inicializamos Toolbar
+        if(activityMainBinding.tbActivityMain!=null)
+            setSupportActionBar(activityMainBinding.tbActivityMain);
 
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        setUpViewPager();
 
-        activityMainBinding.rvListaPeliculas.setLayoutManager(linearLayoutManager);
 
 
 
     }
+
+    private ArrayList<Fragment> agregarFragments(){
+        ArrayList<Fragment> fragments=new ArrayList<>();
+        //Añaderemos los fragments que vamos a manejar
+        fragments.add(new RecyclerViewFragment());
+        fragments.add(new PerfilFragment());
+
+        return fragments;
+    }
+
+    //Ponemos en orbita los fragments
+    private void setUpViewPager(){
+        //Configuramos ViewPager
+        activityMainBinding.vpActivityMain.setAdapter(
+                new PageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                        agregarFragments()));
+        //Agregamos ViewPager al TabLayout
+        activityMainBinding.tlActivityMain.setupWithViewPager(activityMainBinding.vpActivityMain);
+
+        //Seteamos los íconos de los Tabs
+        activityMainBinding.tlActivityMain.getTabAt(0).setIcon(R.drawable.ic_contacts);
+        activityMainBinding.tlActivityMain.getTabAt(1).setIcon(R.drawable.ic_user);
+        activityMainBinding.tlActivityMain.getTabAt(0).setText("Gato");
+    }
+
+
 }

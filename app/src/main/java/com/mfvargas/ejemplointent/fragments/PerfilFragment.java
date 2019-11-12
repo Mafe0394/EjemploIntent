@@ -1,4 +1,4 @@
-package com.mfvargas.ejemplointent.modelo;
+package com.mfvargas.ejemplointent.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.mfvargas.ejemplointent.R;
+import com.mfvargas.ejemplointent.modelo.PerfilViewModel;
 
-public class Perfil extends Fragment {
+public class PerfilFragment extends Fragment {
 
     private PerfilViewModel mViewModel;
 
-    public static Perfil newInstance() {
-        return new Perfil();
+    public static PerfilFragment newInstance() {
+        return new PerfilFragment();
     }
 
     @Override

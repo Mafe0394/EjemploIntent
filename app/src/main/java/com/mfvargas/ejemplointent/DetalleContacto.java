@@ -1,4 +1,4 @@
-package com.mfvargas.ejemplointent.modelo;
+package com.mfvargas.ejemplointent;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,9 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 
-import com.mfvargas.ejemplointent.MainActivity;
-import com.mfvargas.ejemplointent.R;
 import com.mfvargas.ejemplointent.databinding.ActivityDetalleContactoBinding;
+import com.mfvargas.ejemplointent.modelo.Contacto;
 
 public class DetalleContacto extends AppCompatActivity{
 
@@ -22,6 +21,8 @@ public class DetalleContacto extends AppCompatActivity{
     private TextView nombre;
     private TextView telefono;
     private TextView email;
+    private Contacto contacto;
+
 
     private ActivityDetalleContactoBinding activityDetalleContactoBinding;
     @Override
@@ -32,7 +33,7 @@ public class DetalleContacto extends AppCompatActivity{
 
         Bundle parametros = getIntent().getExtras();
 
-        Contacto contacto = new Contacto(parametros.getString("nombre"),
+        contacto = new Contacto(parametros.getString("nombre"),
                 parametros.getString("telefono"),
                 parametros.getString("email"),
                 parametros.getInt("foto"));
@@ -44,7 +45,7 @@ public class DetalleContacto extends AppCompatActivity{
     //Práctica intent
     public void llamar(View v) {
 
-        String tel = telefono.getText().toString();
+        String tel = contacto.getTelefono();
         //Uri->Recurso accesible, es necesario definir permisos
         //alt+enter
 
@@ -63,11 +64,11 @@ public class DetalleContacto extends AppCompatActivity{
     }
 
     public void enviarmail(View v){
-        String email1=email.getText().toString();
+        String email=contacto.getEmail();
         Intent emailIntent=new Intent(Intent.ACTION_SEND);
         //contine la acción que va a suceder
         emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.putExtra(Intent.EXTRA_EMAIL,email1);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL,email);
         emailIntent.setType("message/rfc822");
         startActivity(Intent.createChooser(emailIntent,"Email "));
     }
